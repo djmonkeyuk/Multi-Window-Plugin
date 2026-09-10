@@ -39,7 +39,7 @@ void UMultiWindowSubsystem::Deinitialize()
 	Super::Deinitialize();
 }
 
-UMW_Window* UMultiWindowSubsystem::CreateMultiWindow(UObject* WorldContextObject, TSoftClassPtr<UUserWidget> WidgetClass, FName InTitle, EMultiWidgetDependencyType DependencyType, FVector2D WindowPosition, FVector2D WindowSize, UObject* DependencyObject, EBPSizingRule SizingRule, bool bSupportsMaximize, bool bSupportsMinimize)
+UMW_Window* UMultiWindowSubsystem::CreateMultiWindow(UObject* WorldContextObject, TSoftClassPtr<UUserWidget> WidgetClass, FName InTitle, EMultiWidgetDependencyType DependencyType, FVector2D WindowPosition, FVector2D WindowSize, UObject* DependencyObject, EBPSizingRule SizingRule, bool bSupportsMaximize, bool bSupportsMinimize, bool bAlwaysOnTop)
 {
 	check(!WidgetClass.IsNull());
 	UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::Assert);
@@ -51,6 +51,7 @@ UMW_Window* UMultiWindowSubsystem::CreateMultiWindow(UObject* WorldContextObject
 	NewWindow->SizingRule = SizingRule;
 	NewWindow->bSupportsMaximize = bSupportsMaximize;
 	NewWindow->bSupportsMinimize = bSupportsMinimize;
+	NewWindow->bAlwaysOnTop = bAlwaysOnTop;
 	NewWindow->DependencyType = DependencyType;
 	NewWindow->DependencyObject = DependencyObject;
 	NewWindow->Init();

@@ -34,6 +34,7 @@ void SMultiWindow::Construct(const FArguments& InArgs)
 		.SupportsMaximize(InArgs._SupportsMaximize)
 		.SupportsMinimize(InArgs._SupportsMinimize)
 		.SizingRule(InArgs._SizingRool)
+		.UseOSWindowBorder(true)
 		[
 			// Add your UI widgets here
 			SNew(SVerticalBox)

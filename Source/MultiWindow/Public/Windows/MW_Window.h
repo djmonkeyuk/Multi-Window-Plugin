@@ -34,6 +34,8 @@ enum class EMultiWidgetDependencyType : uint8;
 enum class EBPSizingRule : uint8;
 
 class SMultiWindow;
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiWindowClosed, UMW_Window*, Window);
+
 /**
  * Container Object for a new slate window.
  */
@@ -47,30 +49,33 @@ public:
 	UMW_Window();
 
 
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "MultiWindow")
 	FORCEINLINE bool HasUserWidget() const { return UserWidget.Get() != nullptr; }
 
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "MultiWindow")
 	FORCEINLINE FName GetWindowTitle() const { return WindowTitle; }
 
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "MultiWindow")
 	FORCEINLINE FVector2D GetWindowPosition() const { return WindowPosition; }
 
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "MultiWindow")
 	FORCEINLINE FVector2D GetWindowSize() const { return WindowSize; }
 
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "MultiWindow")
 	FORCEINLINE bool SupportsMaximize() const { return bSupportsMaximize; }
 
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "MultiWindow")
 	FORCEINLINE bool SupportsMinimize() const { return bSupportsMinimize; }
 
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "MultiWindow")
 	FORCEINLINE EMultiWidgetDependencyType GetDependencyType() const { return DependencyType; }
 
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "MultiWindow")
 	FORCEINLINE UObject* GetDependencyObject() const { return DependencyObject.Get(); }
 	
+	UPROPERTY(BlueprintAssignable, Category = "MultiWindow")
+	FMultiWindowClosed OnClosed;
+
 	
 
 	//~ Begin FTickableGameObjectInterface
@@ -96,6 +101,7 @@ public:
 	EBPSizingRule SizingRule;
 	bool bSupportsMaximize;
 	bool bSupportsMinimize;
+	bool bAlwaysOnTop;
 	EMultiWidgetDependencyType DependencyType;
 	TWeakObjectPtr<> DependencyObject;
 	bool bCurrentlyShuttingDown;

@@ -41,7 +41,7 @@ ESizingRule Convert(const EBPSizingRule SizingRule)
 }
 
 UMW_Window::UMW_Window()
-	: SizingRule(EBPSizingRule::UserSized), bSupportsMaximize(true), bSupportsMinimize(true), DependencyType(EMultiWidgetDependencyType::Engine), bCurrentlyShuttingDown(false)
+	: SizingRule(EBPSizingRule::UserSized), bSupportsMaximize(true), bSupportsMinimize(true), bAlwaysOnTop(false), DependencyType(EMultiWidgetDependencyType::Engine), bCurrentlyShuttingDown(false)
 {
 }
 
@@ -71,6 +71,7 @@ void UMW_Window::Init()
 
 	SlateWindow->GetOnWindowClosedEvent().AddWeakLambda(this, [this](const TSharedRef<SWindow>& Window)
 	{
+		OnClosed.Broadcast(this);
 		UMultiWindowSubsystem::Get().NotifyWindowClosedExternally_Internal(this, true);
 	});
 
@@ -82,7 +83,15 @@ void UMW_Window::Init()
 		});
 	}
 	
-	FSlateApplication::Get().AddWindow(SlateWindow.ToSharedRef());
+	const TSharedPtr<SWindow> ParentWindow = FSlateApplication::Get().GetActiveTopLevelWindow();
+	if (bAlwaysOnTop && ParentWindow.IsValid())
+	{
+		FSlateApplication::Get().AddWindowAsNativeChild(SlateWindow.ToSharedRef(), ParentWindow.ToSharedRef());
+	}
+	else
+	{
+		FSlateApplication::Get().AddWindow(SlateWindow.ToSharedRef());
+	}
 }
 
 void UMW_Window::Shutdown(bool bForced)

@@ -69,8 +69,8 @@ public:
 	virtual void Deinitialize() override;
 
 	/* Creates a Multi Window and displays it*/
-	UFUNCTION(BlueprintCallable, BlueprintCosmetic, meta = (AdvancedDisplay = 4, WorldContext = WorldContextObject, BlueprintInternalUseOnly = true, MultiWindow), Category = "MultiWindow")
-	static UMW_Window* CreateMultiWindow(UObject* WorldContextObject, TSoftClassPtr<UUserWidget> WidgetClass, FName InTitle = "New Window", EMultiWidgetDependencyType DependencyType = EMultiWidgetDependencyType::World, FVector2D WindowPosition = FVector2D(0.0f, 0.0f), FVector2D WindowSize = FVector2D(800.0f, 600.0f), UObject* DependencyObject = nullptr, EBPSizingRule SizingRule = EBPSizingRule::UserSized, bool bSupportsMaximize = true, bool bSupportsMinimize = true);
+	UFUNCTION(BlueprintCallable, BlueprintCosmetic, meta = (AdvancedDisplay = "DependencyObject, SizingRule, bSupportsMaximize, bSupportsMinimize", WorldContext = WorldContextObject, BlueprintInternalUseOnly = true, MultiWindow), Category = "MultiWindow")
+	static UMW_Window* CreateMultiWindow(UObject* WorldContextObject, TSoftClassPtr<UUserWidget> WidgetClass, FName InTitle = "New Window", EMultiWidgetDependencyType DependencyType = EMultiWidgetDependencyType::World, FVector2D WindowPosition = FVector2D(0.0f, 0.0f), FVector2D WindowSize = FVector2D(800.0f, 600.0f), UObject* DependencyObject = nullptr, EBPSizingRule SizingRule = EBPSizingRule::UserSized, bool bSupportsMaximize = true, bool bSupportsMinimize = true, bool bAlwaysOnTop = false);
 
 	/* Tries to find an active window, and shuts it down */
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "MultiWindow", meta = (BlueprintInternalUseOnly = true, MultiWindow))
