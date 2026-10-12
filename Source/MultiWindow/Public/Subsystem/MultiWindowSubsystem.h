@@ -26,34 +26,13 @@ SOFTWARE.
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MultiWindowTypes.h"
 #include "Subsystems/EngineSubsystem.h"
+#include "Window/MW_Window.h"
 #include "MultiWindowSubsystem.generated.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogMultiWindow, Verbose, Verbose);
 
-UENUM(BlueprintType)
-enum class EBPSizingRule : uint8
-{
-	/* The windows size fixed and cannot be resized **/
-	FixedSize,
-
-	/** The window size is computed from its content and cannot be resized by users */
-	Autosized,
-
-	/** The window can be resized by users */
-	UserSized,
-};
-
-UENUM(BlueprintType)
-enum class EMultiWidgetDependencyType : uint8
-{
-	Engine,
-	Editor,
-	World,
-	Object,
-};
-
-class UMW_Window;
 /**
  * Create multiple slate widgets and apply UMG widgets to them, works in both editor and standalone.
  */

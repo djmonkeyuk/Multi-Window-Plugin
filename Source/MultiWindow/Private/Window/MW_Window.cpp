@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "Windows/MW_Window.h"
+#include "Window/MW_Window.h"
 
 #include "GameDelegates.h"
 #include "Blueprint/UserWidget.h"
@@ -45,6 +45,10 @@ UMW_Window::UMW_Window()
 {
 }
 
+bool UMW_Window::IsAllowedToTick() const
+{
+	return DependencyType == EMultiWidgetDependencyType::Object && bCurrentlyShuttingDown == false;
+}
 
 void UMW_Window::Tick(float DeltaTime)
 {

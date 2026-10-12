@@ -25,7 +25,7 @@ SOFTWARE.
 #include "Subsystem/MultiWindowSubsystem.h"
 
 #include "Blueprint/UserWidget.h"
-#include "Windows/MW_Window.h"
+#include "Window/MW_Window.h"
 
 DEFINE_LOG_CATEGORY(LogMultiWindow);
 

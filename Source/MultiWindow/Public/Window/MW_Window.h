@@ -26,12 +26,9 @@ SOFTWARE.
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Subsystem/MultiWindowSubsystem.h"
+#include "MultiWindowTypes.h"
 #include "UObject/Object.h"
 #include "MW_Window.generated.h"
-
-enum class EMultiWidgetDependencyType : uint8;
-enum class EBPSizingRule : uint8;
 
 class SMultiWindow;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiWindowClosed, UMW_Window*, Window);
@@ -80,7 +77,7 @@ public:
 
 	//~ Begin FTickableGameObjectInterface
 	virtual bool IsTickable() const override { return true; }
-	virtual bool IsAllowedToTick() const override{ return DependencyType == EMultiWidgetDependencyType::Object && bCurrentlyShuttingDown == false; }
+	virtual bool IsAllowedToTick() const override;
 	virtual bool IsTickableInEditor() const override { return true; }
 	virtual bool IsTickableWhenPaused() const override { return true; }
 	virtual TStatId GetStatId() const override { return TStatId(); }
